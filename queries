@@ -1,0 +1,19 @@
+SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='raghuerp' AND `TABLE_NAME`='Type_of_leave'  // to get column names
+
+
+SELECT `COLUMN_NAME` 
+FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+WHERE `TABLE_SCHEMA`='raghuerp' 
+    AND `TABLE_NAME`='Type_of_leave' and `INFORMATION_SCHEMA`.`COLUMNS`.`COLUMN_NAME`=(select typename from raghuerp.leavetypes where lstatus='enable' and typename=`COLUMN_NAME`)
+
+
+
+$fields = array();
+$res=mysql_query("SHOW COLUMNS FROM mytable");
+while ($x = mysql_fetch_assoc($res)){
+  $fields[] = $x['Field'];
+}
+foreach ($fields as $f) { echo "<br>Field name: ".$f; }
+
+
+SELECT `COLUMN_NAME` as col FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='raghuerp' AND `TABLE_NAME`='Type_of_leave' and `INFORMATION_SCHEMA`.`COLUMNS`.`COLUMN_NAME`=(select typename from raghuerp.leavetypes where lstatus='enable' and typename='sick_leave')

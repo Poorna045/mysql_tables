@@ -1,0 +1,84 @@
+
+http://localhost:3000/poornachand/rohithLibrary.git
+
+Create a new repository on the command line
+
+touch README.md
+git init
+git add *
+git commit -m "first commit"
+git remote add origin http://192.168.0.108:3000/poornachand/leavesystem-ui-theme.git
+git push -u origin master
+Push an existing repository from the command line
+
+git remote add origin http://192.168.0.108:3000/poornachand/lmsserver.git
+git push -u origin master
+
+// to pull data from git repository
+
+git pull        //
+
+git config --global user.name "poornachand"
+git config --global user.password "poorna046"
+
+
+git remote add origin http://192.168.0.108:3000/poornachand/leavesystem-server-theme.git
+
+
+//reset git init
+
+rm -rf .git
+git init
+
+
+
+
+Testing  
+1. Leave History Page -> data tabels, Alter status.
+2.Leave Approval page - lop popup.
+
+
+
+Testing
+3. Deligated page - Popup's for accept, reject.
+4. Report page - date refresh
+
+
+
+
+// git hub  lms ui
+
+
+…or create a new repository on the command line
+
+echo "# leave_system_theme" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Poorna045/leave_system_theme.git
+git push -u origin master
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/Poorna045/leave_system_theme.git
+git push -u origin master
+
+
+
+// git hub  lms server
+
+
+…or create a new repository on the command line
+
+echo "# leave_system_server" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Poorna045/leave_system_server.git
+git push -u origin master
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/Poorna045/leave_system_server.git
+git push -u origin master
+
+
+

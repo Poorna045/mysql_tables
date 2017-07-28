@@ -1,0 +1,10 @@
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin http://192.168.0.108:3000/poornachand/lms_ec.git
+git push -u origin master
+Push an existing repository from the command line
+
+git remote add origin http://192.168.0.108:3000/poornachand/lms_ec.git
+git push -u origin master

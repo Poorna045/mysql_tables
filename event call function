@@ -1,0 +1,7 @@
+select (select raghuerp_db.departments.department from raghuerp_db.departments where raghuerp_db.departments.id=s.department) as department, count(*) as y from raghuerp.leave_issues inner join raghuerp_db.staff s on raghuerp.leave_issues.reg_no=s.reg_no inner join raghuerp_db.colleges on s.college=raghuerp_db.colleges.id  AND raghuerp.leave_issues.from_date <= concat(CURDATE(),' 23:00:00') and raghuerp.leave_issues.to_date > concat(CURDATE(),' 12:00:00') AND raghuerp_db.colleges.college='REC'  and raghuerp.leave_issues.status='Accepted'  group by s.department
+
+select (select d.department from raghuerp_db.departments d where d.id=s.department) as department, count(*) as y from raghuerp.leave_issues l inner join raghuerp_db.staff s on rl.reg_no=s.reg_no inner join raghuerp_db.colleges c on s.college=c.id  AND l.from_date <= concat(CURDATE(),' 23:00:00') and l.to_date > concat(CURDATE(),' 12:00:00') AND c.college='REC'  and l.status='Accepted'  group by s.department
+
+
+
+call college_leaves_summary('','','');

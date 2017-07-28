@@ -1,0 +1,30 @@
+SELECT COUNT(*)  as empcount,(SELECT COUNT(*) FROM raghuerp.leave_issues INNER JOIN raghuerp_db.staff ON raghuerp.leave_issues.reg_no = raghuerp_db.staff.reg_no  AND raghuerp.leave_issues.status='Accepted' AND raghuerp_db.staff.college=(select id from raghuerp_db.colleges c where c.college='REC') AND  concat(CURDATE(),' 12:00:00') BETWEEN from_date  AND to_date) as leavesLength FROM raghuerp_db.staff Where  raghuerp_db.staff.college=(select id from raghuerp_db.colleges c where c.college='REC')
+
+
+
+
+select d.department,count(l.leave_id) as y from raghuerp.leave_issues l left join raghuerp_db.staff s  on s.reg_no=l.reg_no inner join raghuerp_db.departments d on d.id=s.department where l.status='Accepted'  group by d.department
+
+
+
+SELECT s.department,
+    count(l.leave_id) AS `count`
+FROM raghuerp.leave_issues l left outer join  raghuerp_db.staff s on s.reg_no = l.reg_no 
+WHERE (l.status = 'Accepted') 
+GROUP BY s.department
+ORDER BY s.department ASC
+
+
+
+select s.department, count(l.leave_id) as count from raghuerp_db.staff s left join raghuerp.leave_issues l on s.reg_no=l.reg_no group by s.department
+
+
+
+///working
+
+select d.department, count(l.leave_id) as count from raghuerp_db.staff s left join raghuerp.leave_issues l on s.reg_no=l.reg_no and l.status='Accepted' inner join  raghuerp_db.departments d on s.department=d.id group by d.department
+
+
+
+
+select d.department, count(l.leave_id) as y from raghuerp_db.staff s left join raghuerp.leave_issues l on s.reg_no=l.reg_no  and l.from_date< '2017-07-19 12:00:00' and l.to_date>='2017-07-19 00:00:00' inner join  raghuerp_db.departments d on s.department=d.id and s.college=(select id from raghuerp_db.colleges c where c.college='REC') group by d.department

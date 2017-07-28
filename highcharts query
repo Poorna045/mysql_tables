@@ -1,0 +1,186 @@
+
+Links to high chart graphs:
+
+1) http://jsfiddle.net/highcharts/pypaq94t/11/
+2) http://jsfiddle.net/gh/get/jquery/2/highcharts/highcharts/tree/master/samples/highcharts/drilldown/multi-series/
+
+
+Code for high charts:
+
+$sql="select sur_name_college from EmployeDetails where sur_name_college!='' group by sur_name_college ";
+$clgs=$this->db->query($sql)->result();
+
+
+for($i=0;$i<sizeof($clgs);$i++){
+
+
+$name= $clgs[$i]->sur_name_college;
+$oal->$name=[];
+ $oal->$name[0]=(object)[];
+ $oal->$name[1]=(object)[];
+
+$sql2="select Department from EmployeDetails where sur_name_college='$name' group by Department";
+$depts=$this->db->query($sql2)->result();
+
+
+$oal->$name[0]->name='AM';
+$oal->$name[0]->data=[];
+  $oal->$name[1]->name='PM';
+ $oal->$name[1]->data=[];
+for($j=0;$j<sizeof($depts);$j++){
+$oal->$name[0]->data[$j]=[];
+$oal->$name[1]->data[$j]=[];
+ $oal->$name[0]->data[$j][0]=$depts[$j]->Department;
+ $oal->$name[0]->data[$j][1]='3';
+   $oal->$name[1]->data[$j][0]=$depts[$j]->Department;
+ $oal->$name[1]->data[$j][1]='3';
+}
+
+}
+
+return $this->response($oal);  2042 api
+
+
+
+
+
+
+                {
+                  name: 'REC',
+                  id: 'rec-am',
+                  data: [
+                    [
+                      'CSE',
+                      JSON.parse(this.dashdata.RecCse_aM)
+                    ],
+                    [
+                      'MECH',
+                      JSON.parse(this.dashdata.RecMech_aM)
+                    ],
+                    [
+                      'EEE',
+                      JSON.parse(this.dashdata.RecEee_aM)
+                    ],
+                    [
+                      'ECE',
+                      JSON.parse(this.dashdata.RecEce_aM)
+                    ],
+                    [
+                      'CIVIL',
+                      JSON.parse(this.dashdata.RecCivil_aM)
+                    ]
+                  ]
+                },
+                {
+                  name: 'RIT',
+                  id: 'rit-am',
+                  data: [
+                    [
+                      'CSE',
+                      JSON.parse(this.dashdata.RitCse_aM)
+                    ],
+                    [
+                      'MECH',
+                      JSON.parse(this.dashdata.RitMech_aM)
+                    ],
+                    [
+                      'EEE',
+                      JSON.parse(this.dashdata.RitEee_aM)
+                    ],
+                    [
+                      'ECE',
+                      JSON.parse(this.dashdata.RitEce_aM)
+                    ],
+                    [
+                      'CIVIL',
+                      JSON.parse(this.dashdata.RitCivil_aM)
+                    ]
+                  ]
+                }, {
+                  name: 'RCP',
+                  id: 'rcp-am',
+
+                  data: [
+                    [
+                      'B.Pharmacy',
+                      JSON.parse(this.dashdata.RcpBphar_aM)
+                    ],
+                    [
+                      'M.Pharmacy',
+                      JSON.parse(this.dashdata.RcpMphar_aM)
+                    ]
+                  ]
+                },
+
+                {
+                  name: 'REC',
+                  id: 'rec-pm',
+                  data: [
+                    [
+                      'CSE',
+                      JSON.parse(this.dashdata.RecCse_pM)
+                    ],
+                    [
+                      'MECH',
+                      JSON.parse(this.dashdata.RecMech_pM)
+                    ],
+                    [
+                      'EEE',
+                      JSON.parse(this.dashdata.RecEee_pM)
+                    ],
+                    [
+                      'ECE',
+                      JSON.parse(this.dashdata.RecEce_pM)
+                    ],
+                    [
+                      'CIVIL',
+                      JSON.parse(this.dashdata.RecCivil_pM)
+                    ]
+                  ]
+                },
+
+
+                {
+                  name: 'RIT',
+                  id: 'rit-pm',
+                  data: [
+                    [
+                      'CSE',
+                      JSON.parse(this.dashdata.RitCse_pM)
+                    ],
+                    [
+                      'MECH',
+                      JSON.parse(this.dashdata.RitMech_pM)
+                    ],
+                    [
+                      'EEE',
+                      JSON.parse(this.dashdata.RitEee_pM)
+                    ],
+                    [
+                      'ECE',
+                      JSON.parse(this.dashdata.RitEce_pM)
+                    ],
+                    [
+                      'CIVIL',
+                      JSON.parse(this.dashdata.RitCivil_pM)
+                    ]
+                  ]
+                },
+                {
+                  name: 'RCP',
+                  id: 'rcp-pm',
+                  data: [
+                    [
+                      'B.Pharmacy',
+                      JSON.parse(this.dashdata.RcpBphar_pM)
+                    ],
+                    [
+                      'M.Pharmacy',
+                      JSON.parse(this.dashdata.RcpMphar_pM)
+                    ]
+                  ]
+                },
+
+
+
+
