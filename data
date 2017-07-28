@@ -1,0 +1,180 @@
+empDetails=[{"employeId":"1D22","name":"poorna","email":"poornachand046@gmail.com","password":"12345","mobile":"7365987745","cl_Leaves":"7","co_Leaves":"11","sk_leaves":10,"designation":"Applications Engineer","paid_Leave":"22"},{"employeId":"1D23","name":"durga","email":"durgaalluri@gmail.com","password":"45874","mobile":"7774589658","cl_Leaves":"7","co_Leaves":"9","sk_leaves":"14","designation":".NET Developer","paid_Leave":"5"},{"employeId":"1D24","name":"kiran","email":"kirankumar125@gmail.com","password":"98765","mobile":"8215478962","cl_Leaves":"7","co_Leaves":"6","sk_leaves":"14","designation":"Senior Programmer","paid_Leave":"7"},{"employeId":"1D25","name":"krishna","email":"krishnasahukar@gmail.com","password":"10101","mobile":"7458963587","cl_Leaves":"7","co_Leaves":"13","sk_leaves":"14","designation":"Application Developer","paid_Leave":"9"},{"employeId":"1D26","name":"manoj","email":"manojvarma26@gmail.com","password":"45364","mobile":"9696854874","cl_Leaves":"7","co_Leaves":"3","sk_leaves":"14","designation":"Java Developer","paid_Leave":"5"},{"employeId":"1D27","name":"karthik","email":"karthik227@gmail.com","password":"128752","mobile":"8885699954","cl_Leaves":"7","co_Leaves":"6","sk_leaves":"14","designation":"Web Developer","paid_Leave":"12"}]
+
+
+
+empLeave=[{"employeId":"1D22","name":"poorna","cl_Leaves":"7","co_Leaves":"11","sk_leaves":10,"designation":"Applications Engineer","paid_Leave":"22"},
+
+
+{"employeId":"1D23","name":"durga","cl_Leaves":"7","co_Leaves":"9","sk_leaves":"14","designation":".NET Developer","paid_Leave":"5"},
+
+
+{"employeId":"1D24","name":"kiran","cl_Leaves":"7","co_Leaves":"6","sk_leaves":"14","designation":"Senior Programmer","paid_Leave":"7"},
+
+
+{"employeId":"1D25","name":"krishna","cl_Leaves":"7","co_Leaves":"13","sk_leaves":"14","designation":"Application Developer","paid_Leave":"9"},
+
+
+{"employeId":"1D26","name":"manoj","cl_Leaves":"7","co_Leaves":"3","sk_leaves":"14","designation":"Java Developer","paid_Leave":"5"},
+
+
+{"employeId":"1D27","name":"karthik","cl_Leaves":"7","co_Leaves":"6","sk_leaves":"14","designation":"Web Developer","paid_Leave":"12"}]
+
+
+Sorry we are unable to process your leave ! You don't have leaves for this month ! please try for next month !
+
+
+ leaveRequest={
+    "employeId": "1D27",
+    "from": "2017-03-22",
+    "name": "karthik",
+    "reason": "jaundice",
+    "status": "Pending",
+    "to": "2017-03-23",
+    "type": "Sick"
+  },
+
+
+
+"npm uninstall --save-dev angular-cli"                                        <!--$insert['status']="Pending";
+                                                                               $insert['remarks']="";-->
+"npm install --save-dev @angular/cli@latest"
+
+
+
+
+  <table >
+     <tr>
+     <th>Id</th>
+     <th>Name</th>
+     <th>Percentage</th>
+     <th>Department</th>
+    
+     </tr>
+     <tr>
+     <td align="center"> <?php echo $rec->stud_id ;?></td>
+     <td align="center"> <?php echo $rec->stud_name; ?></td>
+     <td align="center"> <?php  echo $rec->percentage; ?></td>
+     <td align="center">  <?php echo $rec->dept; ?></td>
+     <td align="center"> <?php echo anchor("HomeController/DeleteStudData/$rec->stud_id",'<button>X</button>').'<br>'; ?> </td>
+     </tr>
+     </table>
+
+
+$insert['emp_id']=2;
+$insert['type_of_leave']='Sick Leave';
+$insert['from_date']='15-5-2017';
+$insert['to_date']='17-5-2017';
+$insert['reason']='headache';
+$insert['status']='Pending';
+$insert['remarks']='';
+$insert['days']=3;
+
+
+$insert['emp_id']=$this->post("emp_id");
+$insert['type_of_leave']=$this->post("type");
+$insert['from_date']=$this->post("from");
+$insert['to_date']=$this->post("to");
+$insert['reason']=$this->post("reason");
+$insert['status']=$this->post("status");
+$insert['remarks']=$this->post("remarks");
+$insert['days']=(int)$this->post("days");.
+
+
+<table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 20%">
+            <mfDefaultSorter by="name">Emp Id</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="city">Type Of Leave</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="email">From</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="age">To</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="city">Reason</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="city">Status</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="city">Remarks</mfDefaultSorter>
+        </th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of mf.data">
+        <td>{{item.emp_id}}</td>
+        <td>{{item.type_of_leave}}</td>
+        <td >{{item.from_date}}</td>
+        <td>{{item.to_date}}</td>
+        <td>{{item.reason}}</td>
+        <td>{{item.status}}</td>
+        <td>{{item.remarks}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+git init
+
+ git remote add origin http://localhost:3000/techleadit/leave-management-system-SERVER.git
+
+ git remote add origin http://192.168.0.108:3000/techleadit/leave-management-system-UI.git
+
+git push -u origin master
+
+git remote rm origin
+
+http://localhost:3000/techleadit/leave-management-system-SERVER.git
+
+
+SELECT *
+FROM OrderDetails
+LEFT JOIN Orders ON OrderDetails.OrderID = Orders.OrderID;
+
+https://stackoverflow.com/questions/40697214/angular2-ng2-chart-customizations
+
+
+
+emponeavail
+
+ getoneData(id,lid) {
+    const value = localStorage.getItem('emp_id');
+    const onedata = {
+      emp_id: id,
+      leave_id:lid
+    }
+    console.log(onedata, 'local storage emp_id');
+
+
+    let bodyString = onedata;
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    console.log(bodyString, 'body');
+
+
+    return this.http.post(this.emponeurl, bodyString, options)
+      .map((res: Response) => res.json());
+
+  }
+
+
+
+
+
+
+
+
