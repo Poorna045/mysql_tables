@@ -1,0 +1,28 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `college_leaves_summary`(IN `fromdate` DATETIME, IN `todate` DATETIME, IN `college` VARCHAR(10))
+    NO SQL
+BEGIN
+
+CREATE TEMPORARY TABLE IF NOT EXISTS temp_colglvs_table(   
+  `college` varchar(30) NOT NULL,
+  `department` varchar(30) NOT NULL,
+  `leaves` int(4)
+) ENGINE=memory;
+
+insert into temp_colglvs_table (SELECT c.college, d.department, 0 as leaves FROM raghuerp_db.departments d inner join raghuerp_db.colleges c on c.id = d.college);
+
+SET @query = CONCAT("update temp_colglvs_table t1,(select c.college, d.department, count(*) as leaves from raghuerp_leave.leave_issues lv inner join raghuerp_db.staff s on s.reg_no = lv.reg_no inner join raghuerp_db.colleges c on s.college = c.id inner join raghuerp_db.departments d on s.department = d.id where lv.from_date <= '", fromdate, "' and lv.to_date >= '", todate, "' group by d.department) t2 set t1.leaves = t2.leaves where t1.college = t2.college and t1.department = t2.department");
+
+ PREPARE stat FROM @query;
+ EXECUTE stat;
+
+if college = "" then
+ select * from temp_colglvs_table order by college asc;
+else
+ SET @q2 = CONCAT("select * from temp_colglvs_table where college='", college,  "'");
+ PREPARE stat FROM @q2;
+ EXECUTE stat;
+end if;
+
+drop table temp_consumption_table;
+
+END

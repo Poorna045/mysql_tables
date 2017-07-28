@@ -1,0 +1,95 @@
+<div  class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Apply Leave</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal" #form="ngForm" (ngSubmit)="submitLeave(form.value)">
+          <!--<div class="form-group">
+                                        <label class="control-label col-sm-3 " >Leave Type</label>
+                                        <div class="col-sm-5">
+                                        <select   ngModel class="form-control" name="leave" required>
+                                       <option value="casual_Leave" selected > Casual Leave </option>
+                                      </select>
+                                        </div>
+                                    </div>-->
+          <div class="form-group">
+            <label class="control-label col-sm-3 "> From : </label>
+            <div class="col-sm-5">
+              <!--<input type="date" class="form-control" required ngModel #start name="startdate" id="a" placeholder="Enter Start Date Eg: 21/05/1998">-->
+              <my-date-picker  ngModel #start name="startdate" [options]="myDatePickerOptions"
+                (dateChanged)="onDateChanged($event)"></my-date-picker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 ">To : </label>
+            <div class="col-sm-5">
+              <!--<input type="date" class="form-control" ngModel required id="b" #end name="enddate" placeholder="Enter End Date Eg:  14/06/1998">-->
+               <my-date-picker  #end name="enddate" ngModel [options]="myDatePickerOptions"
+                (dateChanged)="onDateChanged2($event)"></my-date-picker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 ">No of Days : </label>
+            <div class="col-sm-5">
+              <input type="number" disabled class="form-control" [(ngModel)]="count"  #days name="days"  >
+               
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 ">Type Of Leave : </label>
+            <div class="col-sm-5">
+              <!--<input type="date" class="form-control" ngModel required id="b" #end name="enddate" placeholder="Enter End Date Eg:  14/06/1998">-->
+             <!--<div class="dropdown">
+    <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">   Select 
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li>Sick Leave <input type="text"></li>
+      <li>Prevelage Leave<input type="text"></li>
+      <li>Compensatory Leave<input type="text"></li>
+      <li>Study Leave<input type="text"></li>
+      <li>Casual Leave<input type="text"></li>
+
+    </ul>
+  </div>-->
+  
+  <ss-multiselect-dropdown #type name="type" ngModel [options]="myOptions"  [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3 ">Reason:</label>
+            <div class="col-sm-5">
+              <textarea class="form-control" rows="5" required ngModel name="reason" id="comment" placeholder="Enter Reason"></textarea>
+            </div>
+          </div>
+          <!--<div *ngIf="grow" class="form-group">
+            <div class="col-sm-5 col-sm-offset-3">
+              <div class="alert alert-dismissible alert-danger">
+                {{value}}
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showpaid" class="form-group">
+            <div class="col-sm-5 col-sm-offset-3">
+              <div class="alert alert-dismissible alert-danger">
+                {{showpaidvalue}}
+              </div>
+            </div>
+          </div>-->
+          <div class="form-group">
+            <label class="col-sm-3 "></label>
+            <div class="col-sm-5">
+              <input type="submit" name="submit" value="Submit &emsp; " class="btn btn-info">
+              <input type="reset" name="reset" class="btn btn-info">
+              <!--<button (click)="Paidd()" class="btn btn-info">LOP</button>-->
+            </div>
+          </div>
+        </form>
+        <div *ngIf="show">
+          <div class="alert alert-success" role="alert">you are successfully submitted your leave request!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+select s.reg_no, concat(s.title,' ',s.firstname,' ',s.lastname) as name, c.college, d.department, s.designation, s.dp, s.email, s.mobile, s.employment_type from staff s left join colleges c on c.id = s.college left join departments d on d.id = s.department order by s.college asc, s.department asc 
+
+
+
+*******************
+
+select c.college, d.department, count(*) as leaves from raghuerp_leave.leave_issues lv inner join raghuerp_db.staff s on s.reg_no = lv.reg_no inner join raghuerp_db.colleges c on s.college = c.id inner join raghuerp_db.departments d on s.department = d.id where lv.from_date <= '2017-07-03 12:00:00' and lv.to_date >= '2017-07-03 17:00:00' and c.college='REC' group by d.department 
