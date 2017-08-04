@@ -1,0 +1,30 @@
+select * from raghuerp_hostel.roomdetails r inner join raghuerp_hostel.roomsconfig rc on r.hsttype=rc.hosteltype and rc.avlbeds<rc.totbeds
+
+
+
+…or create a new repository on the command line
+
+echo "# Hms_UI" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Poorna045/Hms_UI.git
+git push -u origin master
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/Poorna045/Hms_UI.git
+git push -u origin master
+
+
+…or create a new repository on the command line
+
+echo "# HMS_SERVER" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Poorna045/HMS_SERVER.git
+git push -u origin master
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/Poorna045/HMS_SERVER.git
+git push -u origin master
