@@ -40,19 +40,46 @@ class Api_model extends CI_Model
 
        foreach($data['Agenda'] as $agenda){
            $agenda['mid']=$lastid;
-           $this->db->insert('raghuerp_mom.agenda',$agenda); 
+         $view=explode(",",$agenda['agresponsibleperson']);
+
+         for($k=0;$k<sizeof($view);$k++){
+             $agenda['agresponsibleperson']=$view[$k];
+            $this->db->insert('raghuerp_mom.agenda',$agenda); 
+         }
+
+           
        }
         foreach($data['objectives'] as $agenda){
            $agenda['mid']=$lastid;
-           $this->db->insert('raghuerp_mom.objectives',$agenda); 
+           $view=explode(",",$agenda['objowner']);
+           
+                    for($k=0;$k<sizeof($view);$k++){
+                        $agenda['objowner']=$view[$k];
+                        $this->db->insert('raghuerp_mom.objectives',$agenda); 
+                    }
+
        }
         foreach($data['decisions'] as $agenda){
            $agenda['mid']=$lastid;
-           $this->db->insert('raghuerp_mom.decisions',$agenda); 
+
+           $view=explode(",",$agenda['decisiontaken']);
+           
+                    for($k=0;$k<sizeof($view);$k++){
+                        $agenda['decisiontaken']=$view[$k];
+                        $this->db->insert('raghuerp_mom.decisions',$agenda); 
+                    }
+          
        }
         foreach($data['actions'] as $agenda){
            $agenda['mid']=$lastid;
-           $this->db->insert('raghuerp_mom.actions',$agenda); 
+
+           $view=explode(",",$agenda['actresponsibleperson']);
+           
+                    for($k=0;$k<sizeof($view);$k++){
+                        $agenda['actresponsibleperson']=$view[$k];  
+                        $this->db->insert('raghuerp_mom.actions',$agenda); 
+                    }
+        
        }
      if($data['next']['status']=='Sure'){
          $data['next']['nextexpmeetdate']='';
@@ -60,36 +87,160 @@ class Api_model extends CI_Model
           $data['next']['nextdate']='';
            $data['next']['nextvenue']=''; 
      }
+      $data['next']['mid']=$lastid;
+      
         $this->db->insert('raghuerp_mom.nextmeeting',$data['next']);
 
        return $lastid;
    }
 
 
- 
- // check valid id's
-   public function checkidvalid($data){
-      //$str = "1,2,CSE2CR,3,CSE1CR";
-$view=explode(",",$data['Meetings']['facilitator']);
-$datas=[];
-$p=0;
-foreach($view as $ag){
+   //get all meeting details by role
+   public function getmeetingdetailsbyrole($reg_no,$data){
+
+       if($data['utype']=='adm'){
          
-            $dck= $this->db->query("select d.reg_no  from raghuerp_db1.staff d WHERE NOT EXISTS (select s.firstname  from raghuerp_db1.students s where s.reg_no='".$ag."' ) ")->result();
-            if(sizeof($dck)>0){
-                $datas[$p]=$ag;
-                $p++;
-            }
+         $datas=$this->db->query("SELECT * FROM raghuerp_mom.meetingdetails ORDER BY raghuerp_mom.meetingdetails.meetingdate DESC")->result();
+      
+         for($i=0;$i<sizeof($datas);$i++){
+         
+           $datas[$i]->facilitator=$this->checkidvalid($datas[$i]->facilitator);    
+            
+         }
        }
-
-    //   $data= $this->db->query("select s.firstname  from raghuerp_db1.students s where FIND_IN_SET (s.reg_no,'".$data['Meetings']['facilitator']."')")->result();
-    //    $lastid=$this->db->insert_id();
-
-//  $this->db->query("update raghuerp_mom.meetingdetails  m set m.presences='".$data['Attendance']['presences']."',m.absences='".$data['Attendance']['absences']."' where m.mid='".$lastid."'");
-
-       //('".$data['Meetings']['facilitator']."')
-
+       else{
+           
+           $datas=$this->db->query("SELECT * FROM raghuerp_mom.meetingdetails WHERE raghuerp_mom.meetingdetails.reg_no='".$reg_no."' ORDER BY raghuerp_mom.meetingdetails.meetingdate DESC")->result();
+      
+         for($i=0;$i<sizeof($datas);$i++){
+         
+            $datas[$i]->facilitator=$this->checkidvalid($datas[$i]->facilitator);    
+            
+         }
+      
+       }
        return $datas;
+   }
+
+   
+   // get all Action Data
+   public function getallactiondata($data){
+
+       if($data['utype']=='adm'){
+         
+        //  $datas=$this->db->query("SELECT m.*,a.actresponsibleperson,a.acid,a.actdescription,a.actexpectcompletion,a.acstatus,a.actualcompdate FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m on a.mid=m.mid ORDER BY a.acid DESC")->result();
+         
+
+                  $datas=$this->db->query("SELECT m.* ,concat(a.actresponsibleperson,' ',(select p.firstname from raghuerp_db1.staff p where p.reg_no=a.actresponsibleperson ) )  as actresponsibleperson,a.acid,a.actdescription,a.actexpectcompletion,a.acstatus,a.actualcompdate,(case
+  when a.actualcompdate='0000-00-00' and CURDATE()<=a.actexpectcompletion then concat(datediff(curdate(),a.actexpectcompletion) * -1,' Day(s) Left')
+  when a.actualcompdate='0000-00-00' and CURDATE()>a.actexpectcompletion then concat(datediff(curdate(),a.actexpectcompletion),' Day(s) Overdue')
+  when a.actualcompdate!='0000-00-00' and a.actexpectcompletion<=a.actualcompdate then concat(datediff(a.actualcompdate,a.actexpectcompletion),' Day(s) Delayed') when a.actualcompdate!='0000-00-00' and a.actexpectcompletion>a.actualcompdate then concat(datediff(a.actualcompdate,a.actexpectcompletion) * -1,' Day(s) Before Time') 
+  END ) due  FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m on a.mid=m.mid ORDER BY a.acid DESC")->result();
+
+        //    for($i=0;$i<sizeof($datas);$i++){
+         
+        //     $datas[$i]->actresponsibleperson=$this->checkidvalid($datas[$i]->actresponsibleperson);    
+            
+        //  }
+       
+       }
+       else{
+           
+        //    $datas=$this->db->query("SELECT SELECT m.*,a.actresponsibleperson,a.acid,a.actdescription,a.actexpectcompletion,a.acstatus,a.actualcompdate FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m on a.mid=m.mid and FIND_IN_SET('".$data['reg_no']."', a.actresponsibleperson) ORDER BY a.acid DESC")->result();
+       
+           $datas=$this->db->query("SELECT m.*,concat(a.actresponsibleperson,' ',(select p.firstname from raghuerp_db1.staff p where p.reg_no=a.actresponsibleperson ) )  as actresponsibleperson,a.acid,a.actdescription,a.actexpectcompletion,a.acstatus,a.actualcompdate,(case
+  when a.actualcompdate='0000-00-00' and CURDATE()<=a.actexpectcompletion then concat(datediff(curdate(),a.actexpectcompletion) * -1,' Day(s) Left')
+  when a.actualcompdate='0000-00-00' and CURDATE()>a.actexpectcompletion then concat(datediff(curdate(),a.actexpectcompletion),' Day(s) Overdue')
+  when a.actualcompdate!='0000-00-00' and a.actexpectcompletion<=a.actualcompdate then concat(datediff(a.actualcompdate,a.actexpectcompletion),' Day(s) Delayed') when a.actualcompdate!='0000-00-00' and a.actexpectcompletion>a.actualcompdate then concat(datediff(a.actualcompdate,a.actexpectcompletion) * -1,' Day(s) Before Time') 
+  END ) due  FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m on a.mid=m.mid and a.actresponsibleperson='".$data['reg_no']."' ORDER BY a.acid DESC")->result();
+
+
+        //     for($i=0;$i<sizeof($datas);$i++){
+         
+        //     $datas[$i]->actresponsibleperson=$this->checkidvalid($datas[$i]->actresponsibleperson);    
+            
+        //  }
+       }
+       return $datas;
+   }
+
+
+     //get all meeting details by role
+     public function getalldetailsbymid($data){
+
+
+
+           $datas['Meetings']=$this->db->query("SELECT * FROM raghuerp_mom.meetingdetails WHERE mid='".$data['mid']."'")->row();
+
+            $datas['Meetings']->facilitator=$this->checkidvalid($datas['Meetings']->facilitator);    
+              $datas['Meetings']->presences=$this->checkidvalid($datas['Meetings']->presences);  
+                $datas['Meetings']->absences=$this->checkidvalid($datas['Meetings']->absences);  
+            
+         
+
+    	   $datas['Agenda']=$this->db->query("SELECT *,concat(a.agresponsibleperson,' ',(select p.firstname from raghuerp_db1.staff p where p.reg_no=a.agresponsibleperson ) )  as agresponsiblepersons FROM raghuerp_mom.agenda a  WHERE mid='".$data['mid']."'")->result();
+
+           
+        //   for($i=0;$i<sizeof($datas['Agenda']);$i++){
+         
+        //     $datas['Agenda'][$i]->agresponsibleperson=$this->checkidvalid($datas['Agenda'][$i]->agresponsibleperson);     
+            
+        //  }
+
+	       $datas['objectives']=$this->db->query("SELECT *,concat(a.objowner,' ',(select p.firstname from raghuerp_db1.staff p where p.reg_no=a.objowner ) )  as objowners FROM raghuerp_mom.objectives a  WHERE mid='".$data['mid']."'")->result();
+
+	       $datas['decisions']=$this->db->query("SELECT *,concat(a.decisiontaken,' ',(select p.firstname from raghuerp_db1.staff p where p.reg_no=a.decisiontaken ) )  as decisiontakens FROM raghuerp_mom.decisions a WHERE mid='".$data['mid']."'")->result();
+
+        //    for($i=0;$i<sizeof($datas['decisions']);$i++){
+            
+        //        $datas['decisions'][$i]->decisiontaken=$this->checkidvalid($datas['decisions'][$i]->decisiontaken);     
+               
+        //       }
+
+	       $datas['actions']=$this->db->query("SELECT *,concat(a.actresponsibleperson,' ',(select p.firstname from raghuerp_db1.staff p where p.reg_no=a.actresponsibleperson ) )  as actresponsiblepersons,(case
+  when a.actualcompdate='0000-00-00' and CURDATE()<=a.actexpectcompletion then concat(datediff(curdate(),a.actexpectcompletion) * -1,' Day(s) Left')
+  when a.actualcompdate='0000-00-00' and CURDATE()>a.actexpectcompletion then concat(datediff(curdate(),a.actexpectcompletion),' Day(s) Overdue')
+  when a.actualcompdate!='0000-00-00' and a.actexpectcompletion<=a.actualcompdate then concat(datediff(a.actualcompdate,a.actexpectcompletion),' Day(s) Delayed') when a.actualcompdate!='0000-00-00' and a.actexpectcompletion>a.actualcompdate then concat(datediff(a.actualcompdate,a.actexpectcompletion) * -1,' Day(s) Before Time') 
+  END ) due   FROM raghuerp_mom.actions a WHERE mid='".$data['mid']."'")->result();
+
+           
+        //     for($i=0;$i<sizeof($datas['actions']);$i++){
+         
+        //     $datas['actions'][$i]->actresponsibleperson=$this->checkidvalid($datas['actions'][$i]->actresponsibleperson);     
+            
+        //    }
+
+
+    	   $datas['next']=$this->db->query("SELECT * FROM raghuerp_mom.nextmeeting WHERE mid='".$data['mid']."'")->row();
+
+            $datas['next']->attendeeslist=$this->checkidvalid($datas['next']->attendeeslist); 
+            $datas['next']->nextfacilitator=$this->checkidvalid($datas['next']->nextfacilitator);    
+            
+           
+
+
+           return $datas;
+     }
+
+ 
+   // check valid id's
+   public function checkidvalid($data){
+      $str = "RECEEE01,RECCSE548,RECMECH001,xyz123";
+      $view=explode(",",$str);
+      $datas=[];
+      $p=0;
+      foreach($view as $ag){
+         
+            $dck= $this->db->query("select concat( ' ',d.reg_no,' - ',d.firstname ) as names  from raghuerp_db1.staff d WHERE d.reg_no='".$ag."'  ")->row();
+            
+                $datas[$p]=$dck->names;
+                $p++;
+            
+       }
+ 
+      $dsdata = implode(',', $datas);
+
+       return $dsdata;
    }
 
 

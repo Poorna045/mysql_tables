@@ -84,7 +84,9 @@ class Api extends REST_Controller {
 						case 'changePassword'		: $result = $this->Api_model->changePassword($token->reg_no, $params); break;
 						case 'pushalldetails'		: $result = $this->Api_model->pushalldetails($params); break;
 						case 'checkidvalid'		: $result = $this->Api_model->checkidvalid($params); break;
-					
+						case 'getmeetingdetailsbyrole'		: $result = $this->Api_model->getmeetingdetailsbyrole($token->reg_no,$params); break;
+					    case 'getalldetailsbymid'		: $result = $this->Api_model->getalldetailsbymid($params); break;
+						case 'getallactiondata'		: $result = $this->Api_model->getallactiondata($params); break;
 					
 						// case 'getStaff'				: $result = $this->api_model->getStaff($token->reg_no, $params); break;
 						// case 'Upload'				: $result = $this->Api_model->Upload($token->reg_no,$params); break;
@@ -128,11 +130,37 @@ public function pushalldetails_post(){
 }
 
 
+// get meeting details by role
+public function getmeetingdetailsbyrole_post(){
+	
+	$data['utype']=$this->post('utype');
+
+
+	    $this->getData('getmeetingdetailsbyrole',$data);
+}
+
+
+// get all details by mid
+public function getalldetailsbymid_post(){
+	$data['mid']=$this->post('mid');
+
+
+	    $this->getData('getalldetailsbymid',$data);
+}
+
+// get all Action Data
+public function getallactiondata_post(){
+	$data['utype']=$this->post('utype');
+    $data['reg_no']=$this->post('reg_no');
+
+	    $this->getData('getallactiondata',$data);
+}
+
 // check valid id's
 public function checkidvalid_post(){
-	$type=$this->post('typecheck');
+	$data=$this->post('data');
 	// $data['Meetings']=(object) null;
-	$data['Meetings']=$this->post('Meetings');
+	// $data['Meetings']=$this->post('Meetings');
 	// echo $type . gettype($data['Meetings']) . 'testing  </br>';
 	//  print_r($data);
 	// $data['Attendance']=$this->post('Attendance');
