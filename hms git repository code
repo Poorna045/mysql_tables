@@ -1,0 +1,30 @@
+ticketing
+
+
+changes in complaints list page , maintenance page , expence types  page , instructions page  and data base 
+
+
+
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin http://localhost:3000/poornachand/Hostel_managenent_UI.git
+git push -u origin master
+Push an existing repository from the command line
+
+git remote add origin http://192.168.0.108:3000/poornachand/Hostel_managenent_UI.git
+git push -u origin master
+
+
+
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin http://localhost:3000/poornachand/Hostel_managenent_Server.git
+git push -u origin master
+Push an existing repository from the command line
+
+git remote add origin http://192.168.0.108:3000/poornachand/Hostel_managenent_Server.git
+git push -u origin master
