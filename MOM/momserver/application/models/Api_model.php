@@ -226,7 +226,7 @@ class Api_model extends CI_Model
    // check valid id's
    public function checkidvalid($data){
       $str = "RECEEE01,RECCSE548,RECMECH001,xyz123";
-      $view=explode(",",$str);
+      $view=explode(",",$data);
       $datas=[];
       $p=0;
       foreach($view as $ag){
@@ -242,6 +242,53 @@ class Api_model extends CI_Model
 
        return $dsdata;
    }
+
+
+    
+   // DAR API's 
+   
+   // get action data by department
+   public function getActionDataByDept($data){
+    
+    $dsdata=$this->db->query("SELECT m.mid,m.meetingname,m.meetingdate,m.location,a.acid as action_id,a.actdescription as description,a.actexpectcompletion as expect_complet_date,a.acstatus as status  FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m  on a.mid=m.mid inner join raghuerp_db1.staff s on a.actresponsibleperson=s.reg_no and a.acstatus='pending' and s.college=(select c.id from raghuerp_db1.colleges c where c.college='".$data['colg']."') and s.department=(select d.id from raghuerp_db1.departments d where d.department='".$data['dept']."' and  d.college=s.college) ORDER BY a.acid DESC")->result();
+    
+     return $dsdata;
+ }
+
+   // get action data by college
+   public function getActionDataByColg($data){
+    
+    $dsdata=$this->db->query("SELECT m.mid,m.meetingname,m.meetingdate,m.location,a.acid as action_id,a.actdescription as description,a.actexpectcompletion as expect_complet_date,a.acstatus as status FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m  on a.mid=m.mid inner join raghuerp_db1.staff s on a.actresponsibleperson=s.reg_no and a.acstatus='pending' and s.college=(select c.id from raghuerp_db1.colleges c where c.college='".$data['colg']."') ORDER BY a.acid DESC")->result();
+    
+     return $dsdata;
+ }
+
+   // get action data by reg_no
+   public function getActionDataByRegNo($data){
+    
+    $dsdata=$this->db->query("SELECT m.mid,m.meetingname,m.meetingdate,m.location,a.acid as action_id,a.actdescription as description,a.actexpectcompletion as expect_complet_date,a.acstatus as status FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m  on a.mid=m.mid and a.actresponsibleperson='".$data['reg_no']."' and a.acstatus='pending' ORDER BY a.acid DESC")->result();
+    
+     return $dsdata;
+ }
+
+ 
+   // get all action data
+   public function getALLActionDataList(){
+    
+    $dsdata=$this->db->query("SELECT m.mid,m.meetingname,m.meetingdate,m.location,a.acid as action_id,a.actdescription as description,a.actexpectcompletion as expect_complet_date,a.acstatus as status FROM raghuerp_mom.actions a inner join raghuerp_mom.meetingdetails m  on a.mid=m.mid and a.acstatus='pending' ORDER BY a.acid DESC")->result();
+    
+     return $dsdata;
+ }
+
+ 
+   // update action data actualcomplete date
+   public function closeAction($data){
+    
+    $dsdata=$this->db->query("UPDATE raghuerp_mom.actions a set a.actualcompdate='".$data['date']."',a.acstatus='completed' where a.acid='".$data['acid']."' and a.actresponsibleperson='".$data['reg_no']."' ");
+    
+     return $dsdata;
+ }
+
 
 
     // Get Multiple query results function

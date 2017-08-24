@@ -87,6 +87,11 @@ class Api extends REST_Controller {
 						case 'getmeetingdetailsbyrole'		: $result = $this->Api_model->getmeetingdetailsbyrole($token->reg_no,$params); break;
 					    case 'getalldetailsbymid'		: $result = $this->Api_model->getalldetailsbymid($params); break;
 						case 'getallactiondata'		: $result = $this->Api_model->getallactiondata($params); break;
+						case 'getActionDataByDept'		: $result = $this->Api_model->getActionDataByDept($params); break;
+						case 'getActionDataByColg'		: $result = $this->Api_model->getActionDataByColg($params); break;
+						case 'closeAction'		: $result = $this->Api_model->closeAction($params); break;
+						case 'getActionDataByRegNo'		: $result = $this->Api_model->getActionDataByRegNo($params); break;
+						case 'getALLActionDataList'		: $result = $this->Api_model->getALLActionDataList(); break;
 					
 						// case 'getStaff'				: $result = $this->api_model->getStaff($token->reg_no, $params); break;
 						// case 'Upload'				: $result = $this->Api_model->Upload($token->reg_no,$params); break;
@@ -172,9 +177,46 @@ public function checkidvalid_post(){
 	
 //	$datas['data']=$data[$type];
 	
-	
-
 	    $this->getData('checkidvalid',$data);
+}
+
+
+// get all Action Data By Department
+public function getActionDataByDept_post(){
+	$data['colg']=$this->post('college');
+	$data['dept']=$this->post('department');
+
+	    $this->getData('getActionDataByDept',$data);
+}
+
+// get all Action Data By College
+public function getActionDataByColg_post(){
+	$data['colg']=$this->post('college');
+
+	    $this->getData('getActionDataByColg',$data);
+}
+
+// update Action Data By actual complete date and acid
+public function closeAction_post(){
+	$data['reg_no']=$this->post('reg_no');
+	$data['acid']=$this->post('action_id');
+	$data['date']=$this->post('close_date');
+
+	    $this->getData('closeAction',$data);
+}
+
+// get all Action Data By reg no
+public function getActionDataByRegNo_post(){
+	$data['reg_no']=$this->post('reg_no');
+
+	    $this->getData('getActionDataByRegNo',$data);
+}
+
+
+// update Action Data By actual complete date and acid
+public function getALLActionDataList_get(){
+
+	    $this->getData('getALLActionDataList',[]);
 }
 
 	// Get Multiple query results function

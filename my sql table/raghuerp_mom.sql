@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 18, 2017 at 02:44 PM
+-- Generation Time: Aug 24, 2017 at 02:25 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -57,7 +57,7 @@ INSERT INTO `actions` (`acid`, `mid`, `actdescription`, `actresponsibleperson`, 
 (14, 4, 'dfs', 'RECMECH001', '2017-08-16', 'pending', '0000-00-00'),
 (15, 4, 'dsf', 'rec0134', '2017-08-15', 'pending', '0000-00-00'),
 (16, 4, 'dsf', 'rec0072', '2017-08-15', 'pending', '0000-00-00'),
-(17, 5, 'fd', 'rec0067', '2017-08-15', 'pending', '0000-00-00'),
+(17, 5, 'fd', 'rec0067', '2017-08-15', 'completed', '2017-08-25'),
 (18, 5, 'fd', 'rec0176', '2017-08-15', 'pending', '0000-00-00'),
 (19, 5, 'fd', 'rec0148', '2017-08-15', 'pending', '0000-00-00'),
 (20, 6, 'Prepare Presentation', 'rit0206', '2017-08-18', 'pending', '0000-00-00'),
